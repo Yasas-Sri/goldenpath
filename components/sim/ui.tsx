@@ -7,7 +7,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { Colors } from "@/constants/theme";
 import { formatLocalCurrency } from "@/core/currency";
 import { Row } from "@/core/dataset";
-import { useColorScheme } from "@/hooks/use-color-scheme";
+import { toggleColorScheme, useColorScheme } from "@/hooks/use-color-scheme";
 
 export function usePalette() {
   const scheme = useColorScheme() ?? "light";
@@ -15,13 +15,13 @@ export function usePalette() {
   return {
     ...base,
     scheme,
-    card: scheme === "dark" ? "#1d2124" : "#f4f6f8",
-    border: scheme === "dark" ? "#31363a" : "#e1e6ea",
+    card: scheme === "dark" ? "#161b22" : "#f4f6f8",
+    border: scheme === "dark" ? "#232a33" : "#e1e6ea",
     muted: scheme === "dark" ? "#9BA1A6" : "#687076",
-    accent: "#0a7ea4",
-    good: "#2e9e5b",
+    accent: "#2dd4bf",
+    good: "#2dd4bf",
     warn: "#d98c00",
-    bad: "#d64545",
+    bad: "#ef4444",
   };
 }
 
@@ -62,7 +62,15 @@ export function Screen({ title, children }: { title: string; children: React.Rea
   return (
     <SafeAreaView edges={["top"]} style={{ flex: 1, backgroundColor: p.background }}>
       <ScrollView contentContainerStyle={styles.screenContent}>
-        <Text style={[styles.screenTitle, { color: p.text }]}>{title}</Text>
+        <View style={styles.screenHeader}>
+          <Text style={[styles.screenTitle, { color: p.text }]}>{title}</Text>
+          <Pressable
+            onPress={toggleColorScheme}
+            hitSlop={12}
+            style={[styles.themeToggle, { borderColor: p.border }]}>
+            <Text style={{ fontSize: 18 }}>{p.scheme === "dark" ? "☀️" : "🌙"}</Text>
+          </Pressable>
+        </View>
         {children}
       </ScrollView>
     </SafeAreaView>
@@ -145,7 +153,10 @@ export function ChipRow({
                   backgroundColor: selected ? p.accent : p.background,
                 },
               ]}>
-              <Text style={{ fontSize: 13, color: selected ? "#fff" : p.text }}>{option}</Text>
+              <Text
+                style={{ fontSize: 13, fontWeight: selected ? "700" : "400", color: selected ? "#0d1117" : p.text }}>
+                {option}
+              </Text>
             </Pressable>
           );
         })}
@@ -208,7 +219,7 @@ export function PrimaryButton({
       onPress={onPress}
       disabled={disabled}
       style={[styles.primaryButton, { backgroundColor: p.accent, opacity: disabled ? 0.6 : 1 }]}>
-      <Text style={{ color: "#fff", fontSize: 16, fontWeight: "700" }}>{title}</Text>
+      <Text style={{ color: "#0d1117", fontSize: 16, fontWeight: "700" }}>{title}</Text>
     </Pressable>
   );
 }
@@ -401,9 +412,22 @@ const styles = StyleSheet.create({
     paddingBottom: 40,
     gap: 12,
   },
+  screenHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
   screenTitle: {
     fontSize: 26,
     fontWeight: "700",
+  },
+  themeToggle: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 1,
+    alignItems: "center",
+    justifyContent: "center",
   },
   card: {
     borderRadius: 12,

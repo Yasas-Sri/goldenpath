@@ -1,50 +1,65 @@
-# Welcome to your Expo app 
+# GoldenPath
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+GoldenPath is an Expo / React Native app that models the long-term financial
+outcome of relocating to another country. You pick a destination, describe your
+scenario (visa route, family, education, income level, debts), and the app
+simulates your net asset value (NAV) year by year — then compares countries so
+you can see where you'd come out ahead.
+
+## What it does
+
+- **Net-worth simulation** — projects income, expenses, and NAV over a multi-year
+  horizon for a chosen country and scenario.
+- **Country comparison** — runs the same scenario across every supported country
+  and ranks the results in a common currency (LKR).
+- **Sensitivity & risk** — identifies the variable your outcome is most sensitive
+  to, and gives best-/worst-case NAV bounds with a risk rating.
+- **Dataset validation** — every country dataset is checked before it can be
+  simulated. If a value is in the wrong currency (or otherwise inconsistent), the
+  dataset is flagged as unsafe and blocked rather than producing wrong numbers.
+
+Supported countries: USA, Japan, Canada, Germany, Australia, New Zealand,
+Singapore, and Sri Lanka.
+
+## App structure
+
+The UI is a five-tab flow (Expo Router file-based routing under `app/(tabs)/`):
+
+| Tab | Purpose |
+|-----|---------|
+| **Setup** | Choose country and scenario inputs |
+| **Dashboard** | NAV projection and summary for the selected country |
+| **Details** | Year-by-year income / expense / NAV tables |
+| **Compare** | Ranked comparison across all countries |
+| **Risk** | Sensitivity analysis and risk rating |
+
+Key folders:
+
+- `core/` — the simulation engine (income, expense, NAV, comparison, sensitivity,
+  risk models) plus dataset loading, currency conversion, and validation.
+- `data/` — one `*_dataset.json` per country, and `country_registry.json`.
+- `context/` — shared simulation state provider.
 
 ## Get started
 
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+From the Expo output you can open the app in an Android emulator, iOS simulator,
+[Expo Go](https://expo.dev/go), or the web.
 
-## Learn more
+## Scripts
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+npm run android   # start on Android
+npm run ios       # start on iOS
+npm run web       # start in the browser
+npm run lint      # expo lint
+npm run parity    # typecheck + run the parity test suite
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+## Datasets
 
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+Each country's economic figures live in `data/<country>_dataset.json`.

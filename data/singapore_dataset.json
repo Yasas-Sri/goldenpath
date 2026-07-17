@@ -164,8 +164,8 @@
   "expenses": {
     "general_living_excluding_rent": {
       "single_monthly": {
-        "value": 1152,
-        "currency": "USD",
+        "value": 1489,
+        "currency": "SGD",
         "year": 2026,
         "source": "https://www.numbeo.com/cost-of-living/in/Singapore",
         "notes": "Numbeo estimates a single person’s monthly costs excluding rent at USD 1,152 (about SGD 1,489)."
@@ -194,11 +194,11 @@
         "notes": "Uhomes notes that a one‑bedroom apartment outside the city centre rents for about SGD 2,554/month in 2026."
       },
       "family_monthly": {
-        "value": 3473,
-        "currency": "USD",
+        "value": 4695,
+        "currency": "SGD",
         "year": 2026,
         "source": "https://www.numbeo.com/cost-of-living/in/Singapore",
-        "notes": "A three‑bedroom apartment outside the city centre averages SGD 4,695/month; converted at ~0.74 USD/SGD ≈ USD 3,473."
+        "notes": "A three‑bedroom apartment outside the city centre averages SGD 4,695/month."
       }
     },
     "childcare": {
